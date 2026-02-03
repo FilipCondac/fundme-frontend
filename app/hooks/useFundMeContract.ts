@@ -3,27 +3,33 @@ import { fundMeABI } from "@/config/contracts";
 import { useContractAddress } from "./useContractAddress";
 
 export const useOwner = () => {
-  const { address } = useContractAddress();
+  const { address, isSupported } = useContractAddress();
 
   return useReadContract({
     address,
     abi: fundMeABI,
     functionName: "i_owner",
+    query: {
+      enabled: isSupported,
+    },
   });
 };
 
 export const useMinimumUSD = () => {
-  const { address } = useContractAddress();
+  const { address, isSupported } = useContractAddress();
 
   return useReadContract({
     address,
     abi: fundMeABI,
     functionName: "MINIMUM_USD",
+    query: {
+      enabled: isSupported,
+    },
   });
 };
 
 export const useUserContribution = (userAddress: `0x${string}` | undefined) => {
-  const { address } = useContractAddress();
+  const { address, isSupported } = useContractAddress();
 
   return useReadContract({
     address,
@@ -31,7 +37,7 @@ export const useUserContribution = (userAddress: `0x${string}` | undefined) => {
     functionName: "addressToAmountFunded",
     args: userAddress ? [userAddress] : undefined,
     query: {
-      enabled: !!userAddress,
+      enabled: !!userAddress && isSupported,
       refetchInterval: 10000,
     },
   });

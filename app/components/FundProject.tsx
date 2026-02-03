@@ -21,7 +21,7 @@ const FundProject = () => {
   } = useTransactionState();
 
   const { data: minimumUSD, isLoading: isLoadingMinimum } = useMinimumUSD();
-  const { address, abi } = useFundMeContract();
+  const { address, abi, isSupported } = useFundMeContract();
 
   useEffect(() => {
     if (isConfirmed) {
@@ -70,7 +70,13 @@ const FundProject = () => {
     <div className="bg-white rounded-lg shadow-lg p-8">
       <h2 className="text-2xl font-bold  mb-6">Fund the Project</h2>
 
-      {isLoadingMinimum ? (
+      {!isSupported ? (
+        <div className="mb-4 p-4 bg-yellow-50 rounded-lg">
+          <p className="text-sm text-yellow-700">
+            Switch to Sepolia network to view details
+          </p>
+        </div>
+      ) : isLoadingMinimum ? (
         <div className="mb-4 p-4 bg-blue-50 rounded-lg">
           <Skeleton className="h-4 w-3/4" />
         </div>

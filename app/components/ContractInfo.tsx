@@ -18,8 +18,7 @@ const ContractInfo: React.FC = () => {
           <span className="font-medium">Network:</span> Sepolia
         </p>
         <p className="text-gray-600 break-all">
-          <span className="font-medium">Address:</span>{" "}
-          {address}
+          <span className="font-medium">Address:</span> {address}
         </p>
         {isLoading ? (
           <div className="flex items-center gap-2">
