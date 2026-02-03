@@ -5,12 +5,13 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
   useChainId,
+  UseWriteContractReturnType,
 } from "wagmi";
 import { sepolia } from "wagmi/chains";
 
 interface TransactionContextType {
   hash: `0x${string}` | undefined;
-  writeContract: any;
+  writeContract: UseWriteContractReturnType["writeContract"];
   isPending: boolean;
   isConfirming: boolean;
   isConfirmed: boolean;
