@@ -2,9 +2,10 @@
 
 import { useOwner } from "../hooks/useFundMeContract";
 import { useContractAddress } from "../hooks/useContractAddress";
+import { Skeleton } from "./LoadingSkeleton";
 
 const ContractInfo: React.FC = () => {
-  const { data: owner } = useOwner();
+  const { data: owner, isLoading } = useOwner();
   const { address } = useContractAddress();
 
   return (
@@ -20,11 +21,16 @@ const ContractInfo: React.FC = () => {
           <span className="font-medium">Address:</span>{" "}
           {address}
         </p>
-        {owner && (
+        {isLoading ? (
+          <div className="flex items-center gap-2">
+            <span className="font-medium text-gray-600">Owner:</span>
+            <Skeleton className="h-4 flex-1" />
+          </div>
+        ) : owner ? (
           <p className="text-gray-600 break-all">
             <span className="font-medium">Owner:</span> {owner}
           </p>
-        )}
+        ) : null}
       </div>
     </div>
   );

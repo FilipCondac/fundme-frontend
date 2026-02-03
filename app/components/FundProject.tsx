@@ -6,6 +6,7 @@ import { useTransactionState } from "../hooks/useTransactionState";
 import { useMinimumUSD } from "../hooks/useFundMeContract";
 import { useFundMeContract } from "../hooks/useFundMeContract";
 import toast from "react-hot-toast";
+import { Skeleton } from "./LoadingSkeleton";
 
 const FundProject = () => {
   const [fundAmount, setFundAmount] = useState("");
@@ -19,7 +20,7 @@ const FundProject = () => {
     isCorrectNetwork,
   } = useTransactionState();
 
-  const { data: minimumUSD } = useMinimumUSD();
+  const { data: minimumUSD, isLoading: isLoadingMinimum } = useMinimumUSD();
   const { address, abi } = useFundMeContract();
 
   useEffect(() => {
@@ -69,13 +70,17 @@ const FundProject = () => {
     <div className="bg-white rounded-lg shadow-lg p-8">
       <h2 className="text-2xl font-bold  mb-6">Fund the Project</h2>
 
-      {minimumUSD && (
+      {isLoadingMinimum ? (
+        <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+          <Skeleton className="h-4 w-3/4" />
+        </div>
+      ) : minimumUSD ? (
         <div className="mb-4 p-4 bg-blue-50 rounded-lg">
           <p className="text-sm text-gray-600">
             Minimum required: ${formatEther(minimumUSD)} USD worth of ETH
           </p>
         </div>
-      )}
+      ) : null}
 
       <div className="space-y-4">
         <div>
