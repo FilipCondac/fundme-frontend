@@ -1,6 +1,8 @@
 "use client";
 
-const ConnectWallet = () => {
+import { memo } from "react";
+
+const ConnectWallet = memo(() => {
   return (
     <div className="text-center py-20">
       <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -12,6 +14,8 @@ const ConnectWallet = () => {
       <p className="text-gray-500">Connect your wallet to get started</p>
     </div>
   );
-};
+});
+
+ConnectWallet.displayName = "ConnectWallet";
 
 export default ConnectWallet;

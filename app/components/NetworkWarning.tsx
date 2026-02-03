@@ -1,9 +1,10 @@
 "use client";
 
+import { memo } from "react";
 import { useAccount, useChainId, useSwitchChain } from "wagmi";
 import { sepolia } from "wagmi/chains";
 
-const NetworkWarning = () => {
+const NetworkWarning = memo(() => {
   const { isConnected } = useAccount();
   const chainId = useChainId();
   const { switchChain } = useSwitchChain();
@@ -50,6 +51,8 @@ const NetworkWarning = () => {
       </div>
     </div>
   );
-};
+});
+
+NetworkWarning.displayName = "NetworkWarning";
 
 export default NetworkWarning;

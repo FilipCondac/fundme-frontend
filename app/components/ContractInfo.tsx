@@ -1,10 +1,11 @@
 "use client";
 
+import { memo } from "react";
 import { useOwner } from "../hooks/useFundMeContract";
 import { useContractAddress } from "../hooks/useContractAddress";
 import { Skeleton } from "./LoadingSkeleton";
 
-const ContractInfo: React.FC = () => {
+const ContractInfo = memo(() => {
   const { data: owner, isLoading } = useOwner();
   const { address } = useContractAddress();
 
@@ -33,6 +34,8 @@ const ContractInfo: React.FC = () => {
       </div>
     </div>
   );
-};
+});
+
+ContractInfo.displayName = "ContractInfo";
 
 export default ContractInfo;
