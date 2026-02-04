@@ -25,7 +25,7 @@ const FundProject = () => {
   const { address, abi, isSupported } = useFundMeContract();
 
   useEffect(() => {
-    if (isConfirmed) {
+    if (isConfirmed && hash) {
       toast.dismiss();
       toast.success(
         "Transaction successful! Your contribution has been recorded.",

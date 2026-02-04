@@ -8,6 +8,7 @@ import FundProject from "./components/FundProject";
 import NetworkWarning from "./components/NetworkWarning";
 import OwnerControls from "./components/OwnerControls";
 import ContractInfo from "./components/ContractInfo";
+import TransactionHistory from "./components/TransactionHistory";
 import { Web3ErrorBoundary } from "./components/errors/Web3ErrorBoundary";
 
 export default function Home() {
@@ -28,19 +29,22 @@ export default function Home() {
         {!isConnected ? (
           <ConnectWallet />
         ) : (
-          <div className="grid md:grid-cols-2 gap-8">
-            <Web3ErrorBoundary>
-              <FundProject />
-            </Web3ErrorBoundary>
-            <div className="space-y-6">
+          <div className="space-y-8">
+            <div className="grid md:grid-cols-2 gap-8">
               <Web3ErrorBoundary>
-                <Contributions />
+                <FundProject />
               </Web3ErrorBoundary>
-              <Web3ErrorBoundary>
-                <OwnerControls />
-              </Web3ErrorBoundary>
-              <ContractInfo />
+              <div className="space-y-6">
+                <Web3ErrorBoundary>
+                  <Contributions />
+                </Web3ErrorBoundary>
+                <Web3ErrorBoundary>
+                  <OwnerControls />
+                </Web3ErrorBoundary>
+                <ContractInfo />
+              </div>
             </div>
+            <TransactionHistory />
           </div>
         )}
       </main>
