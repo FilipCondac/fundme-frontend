@@ -31,7 +31,7 @@ const TransactionHistory = memo(() => {
         <div className="text-center py-4">
           <p className="text-sm text-red-600">{error}</p>
           <p className="text-xs text-gray-500 mt-1">
-            Add NEXT_PUBLIC_ETHERSCAN_API_KEY to your .env file
+            Add ETHERSCAN_API_KEY to your .env file
           </p>
         </div>
       ) : transactions.length === 0 ? (

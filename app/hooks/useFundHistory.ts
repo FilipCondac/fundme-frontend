@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import axios from "axios";
 import { useContractAddress } from "./useContractAddress";
 
 export interface ContractTransaction {
@@ -51,27 +52,14 @@ export const useFundHistory = () => {
       setError(null);
 
       try {
-        const apiKey = process.env.NEXT_PUBLIC_ETHERSCAN_API_KEY || "";
-
-        if (!apiKey) {
-          setError("Etherscan API key required");
-          return;
-        }
-
-        const txUrl = `https://api.etherscan.io/v2/api?chainid=11155111&module=account&action=txlist&address=${contractAddress}&startblock=0&endblock=99999999&page=1&offset=100&sort=desc&apikey=${apiKey}`;
-        const internalUrl = `https://api.etherscan.io/v2/api?chainid=11155111&module=account&action=txlistinternal&address=${contractAddress}&startblock=0&endblock=99999999&page=1&offset=100&sort=desc&apikey=${apiKey}`;
-
-        const [txResponse, internalResponse] = await Promise.all([
-          fetch(txUrl),
-          fetch(internalUrl),
+        const [{ data: txData }, { data: internalData }] = await Promise.all([
+          axios.get<EtherscanResponse>("/api/etherscan", {
+            params: { address: contractAddress, action: "txlist" },
+          }),
+          axios.get<EtherscanResponse>("/api/etherscan", {
+            params: { address: contractAddress, action: "txlistinternal" },
+          }),
         ]);
-
-        if (!txResponse.ok || !internalResponse.ok) {
-          throw new Error(`HTTP error! status: ${txResponse.status}`);
-        }
-
-        const [txData, internalData]: [EtherscanResponse, EtherscanResponse] =
-          await Promise.all([txResponse.json(), internalResponse.json()]);
 
         if (txData.status === "1" && Array.isArray(txData.result)) {
           const internalTxMap = new Map<
