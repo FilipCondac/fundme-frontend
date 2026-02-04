@@ -52,13 +52,13 @@ npm run dev
 
 OpeFeatures
 
-- 🔗 Connect with multiple wallets (MetaMask, WalletConnect, Coinbase Wallet, etc.)
-- 💰 Fund projects with ETH (minimum $5 USD equivalent)
-- 📊 Real-time USD price conversion using Chainlink oracles
-- 🔐 Owner-only withdraw functionality
-- 📜 Transaction history with Fund/Withdraw tracking
-- 🔄 Live transaction status updates
-- 🎨 Responsive UI with loading states
+- Connect with multiple wallets (MetaMask, WalletConnect, Coinbase Wallet, etc.)
+- Fund projects with ETH (minimum $5 USD equivalent)
+- Real-time USD price conversion using Chainlink oracles
+- Owner-only withdraw functionality
+- Transaction history with Fund/Withdraw tracking
+- Live transaction status updates
+- Responsive UI with loading states
 
 ## Smart Contract
 
@@ -74,15 +74,6 @@ When deploying to Vercel or other platforms:
    - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`
    - `NEXT_PUBLIC_FUNDME_CONTRACT_ADDRESS`
    - `ETHERSCAN_API_KEY`
-
-2. For production security:
-   - Add domain restrictions in [WalletConnect Cloud Dashboard](https://cloud.walletconnect.com)
-   - Never commit `.env.local` to version control
-   - Rotate API keys if exposed
-     npm run dev # Development server
-     npm run build # Production build
-     npm run start # Production server
-     npm run lint # Run linter
 
 ```
 
