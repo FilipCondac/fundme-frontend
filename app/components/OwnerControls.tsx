@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useIsOwner } from "../hooks/useIsOwner";
 import { useTransactionState } from "../hooks/useTransactionState";
 import { useFundMeContract } from "../hooks/useFundMeContract";
@@ -11,18 +11,21 @@ const OwnerControls: React.FC = () => {
   const { writeContract, isPending, isCorrectNetwork, isConfirmed, error } =
     useTransactionState();
   const { address, abi } = useFundMeContract();
+  const isWithdrawing = useRef(false);
 
   useEffect(() => {
-    if (isConfirmed) {
+    if (isConfirmed && isWithdrawing.current) {
       toast.dismiss();
-      toast.success("Funds withdrawn successfully!");
+      toast.success("Withdrawal successful!");
+      isWithdrawing.current = false;
     }
   }, [isConfirmed]);
 
   useEffect(() => {
-    if (error) {
+    if (error && isWithdrawing.current) {
       toast.dismiss();
       toast.error(error.message || "Withdrawal failed");
+      isWithdrawing.current = false;
     }
   }, [error]);
 
@@ -33,6 +36,7 @@ const OwnerControls: React.FC = () => {
     }
 
     try {
+      isWithdrawing.current = true;
       writeContract({
         address,
         abi,
@@ -42,6 +46,7 @@ const OwnerControls: React.FC = () => {
     } catch (error) {
       console.error("Error withdrawing:", error);
       toast.error("Failed to initiate withdrawal");
+      isWithdrawing.current = false;
     }
   };
 

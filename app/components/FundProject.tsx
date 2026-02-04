@@ -30,7 +30,6 @@ const FundProject = () => {
       toast.success(
         "Transaction successful! Your contribution has been recorded.",
       );
-      console.log("Transaction confirmed with hash:", hash);
     }
   }, [isConfirmed, hash]);
 
