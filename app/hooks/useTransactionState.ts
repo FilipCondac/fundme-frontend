@@ -2,6 +2,7 @@ import { useTransaction } from "../contexts/TransactionContext";
 
 export const useTransactionState = () => {
   const {
+    hash,
     writeContract,
     isPending,
     isConfirming,
@@ -23,6 +24,7 @@ export const useTransactionState = () => {
   };
 
   return {
+    hash,
     writeContract,
     isPending,
     isConfirming,

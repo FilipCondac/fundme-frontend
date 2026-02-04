@@ -18,6 +18,7 @@ const FundProject = () => {
     isConfirmed,
     error: writeError,
     isCorrectNetwork,
+    hash,
   } = useTransactionState();
 
   const { data: minimumUSD, isLoading: isLoadingMinimum } = useMinimumUSD();
@@ -29,8 +30,9 @@ const FundProject = () => {
       toast.success(
         "Transaction successful! Your contribution has been recorded.",
       );
+      console.log("Transaction confirmed with hash:", hash);
     }
-  }, [isConfirmed]);
+  }, [isConfirmed, hash]);
 
   useEffect(() => {
     if (writeError) {
@@ -115,6 +117,53 @@ const FundProject = () => {
                 ? "Confirming..."
                 : "Fund Project"}
         </button>
+
+        {hash && isConfirmed && (
+          <div className="p-4 bg-gradient-to-r from-green-50 to-emerald-50 border border-green-200 rounded-lg shadow-sm">
+            <div className="flex items-center gap-2 mb-2">
+              <svg
+                className="w-5 h-5 text-green-600"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <p className="text-sm font-semibold text-green-800">
+                Transaction Confirmed!
+              </p>
+            </div>
+            <a
+              href={`https://sepolia.etherscan.io/tx/${hash}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1 text-sm text-indigo-700 hover:text-indigo-900 font-medium transition-colors group"
+            >
+              <span>View on Etherscan</span>
+              <svg
+                className="w-4 h-4 group-hover:translate-x-1 transition-transform"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                />
+              </svg>
+            </a>
+            <p className="text-xs text-gray-600 mt-2 font-mono break-all">
+              {hash}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );
