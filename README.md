@@ -28,10 +28,21 @@ npm install
 2. Configure environment:
 
 ```bash
-cp .env.example .env
+cp .env.example .env.local
 ```
 
-Edit `.env` with your WalletConnect Project ID from [cloud.walletconnect.com](https://cloud.walletconnect.com/).
+Edit `.env.local` with your credentials:
+
+**Required:**
+
+- `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID` - Get from [cloud.walletconnect.com](https://cloud.walletconnect.com/)
+- `NEXT_PUBLIC_FUNDME_CONTRACT_ADDRESS` - Contract address (already set for Sepolia)
+
+**Optional (for transaction history):**
+
+- `ETHERSCAN_API_KEY` - Get from [etherscan.io/myapikey](https://etherscan.io/myapikey)
+
+- `ETHERSCAN_API_KEY` stays server-side only and is proxied through `/api/etherscan`
 
 3. Run development server:
 
@@ -39,15 +50,40 @@ Edit `.env` with your WalletConnect Project ID from [cloud.walletconnect.com](ht
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+OpeFeatures
 
-## Scripts
+- 🔗 Connect with multiple wallets (MetaMask, WalletConnect, Coinbase Wallet, etc.)
+- 💰 Fund projects with ETH (minimum $5 USD equivalent)
+- 📊 Real-time USD price conversion using Chainlink oracles
+- 🔐 Owner-only withdraw functionality
+- 📜 Transaction history with Fund/Withdraw tracking
+- 🔄 Live transaction status updates
+- 🎨 Responsive UI with loading states
 
-```bash
-npm run dev       # Development server
-npm run build     # Production build
-npm run start     # Production server
-npm run lint      # Run linter
+## Smart Contract
+
+- Network: Sepolia Testnet
+- Address: `0xa5bc62e923a7cfdf47747f6d48fa5a3b1655f76b`
+- Repository: [fundme-transaction-contract](https://github.com/FilipCondac/fundme-transaction-contract)
+
+## Deployment
+
+When deploying to Vercel or other platforms:
+
+1. Add environment variables in your platform's dashboard:
+   - `NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID`
+   - `NEXT_PUBLIC_FUNDME_CONTRACT_ADDRESS`
+   - `ETHERSCAN_API_KEY`
+
+2. For production security:
+   - Add domain restrictions in [WalletConnect Cloud Dashboard](https://cloud.walletconnect.com)
+   - Never commit `.env.local` to version control
+   - Rotate API keys if exposed
+     npm run dev # Development server
+     npm run build # Production build
+     npm run start # Production server
+     npm run lint # Run linter
+
 ```
 
 ## Smart Contract
@@ -59,3 +95,4 @@ npm run lint      # Run linter
 ## License
 
 MIT
+```
